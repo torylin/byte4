@@ -52,21 +52,69 @@
     
       <div class="page-header">
 	<h2>Is the data complete?</h2>
-	<p>If not, what is missing and what concerns does it raise?
-	What is your evidence for this?</p>
+	<p>Several aspects of the data are incomplete. For example, my mobile device would not always succeed in predicting
+	activity, leading to a very large number of "Null" activity predictions that I excluded from the visualization.
+	Furthermore, some activity predictions fell under multiple categories (["stationary," "automotive"]). As the
+	meaning of a multi-category prediction is unclear, I also excluded these predictions from the visualization. 
+	The following plot displays the number of records per activity prior to the removal of the aforementioned predictions.</p>
+	
+	<img width="700" src="plot1.png" alt="Italian Trulli">
+	
+	<p>In addition, the sampling of the data, while not necessarily incomplete, is not constant over time—it appears in all three
+	cases that samples are taken whenever there is significant movement or activity rather than, for example, every 30 minutes.
+	This somewhat skews the results of frequency plots because there are fewer records when my phone does not move at all
+	(for example, when I am asleep in bed) than when it is moving (for example, when I am at school), making it seem as though
+	I spend more time at places where my phone moves (e.g. school) than at places where it does not (e.g. at home in bed).
+	Graphs of the number of records at each hour of the day confirm that more records are taken during active hours than
+	during sleeping hours.</p>
+	
+	<img width="700" src="plot2.png" alt="Italian Trulli">
+	<img width="700" src="plot3.png" alt="Italian Trulli">
+	<img width="700" src="plot4.png" alt="Italian Trulli">
       </div>
       
       <div class="page-header">
 	<h2>Is the data coherent?</h2>
-	<p>Does it make sense relative to itself? Does it match your
-	expectations? Are the distributions sensible? What is your
-	evidence for this?</p>
+	<p>Given that the sampling of the data is not constant over time, the distribution of the data makes sense
+	and matches my expectations (somewhat sadly). As a student, I would expect that the vast majority of my time 
+	is spent either at school or at home, which is where I'm most often sampled. The few locations recorded outside 
+	of those limited settings occurred on the weekends, when I would be free to travel. My activity data also 
+	seems to make sense—most of the records indicate that I am stationary, which is consistent with the fact that 
+	I am usually in class or working on classwork. My second most frequent activity is recorded as walking (consistent
+	with traveling to and from public transportation, around campus, on weekends, etc.), and automotive transport is 
+	the third (consistent with taking the bus to and from school, or driving somewhere on the weekends).
+	</p>
       </div>
 
       <div class="page-header">
 	<h2>Is the data correct?</h2>
-	<p>What aspects of this data can you verify? How did you do so? What did
-	you find?</p>
+	<p>As this data originates from my own behavior, I am at least able to verify the accuracy of the location map
+	almost completely. I can see that on Mondays and Wednesdays I travel from my home to campus around 12 PM (when I
+	have class), while on Tuesdays and Thursdays I make the trip between 10 AM and 11 AM (I have class at 10:30 AM).
+	The map further indicates that I usually return home in the evenings, which I know to be true. My trips to the Waterfront
+	and Ross Park Mall on October 13 were accurately recorded in the data, as was my late-night trip to Whole Foods
+	the day before.</p>
+	
+	<p>On the other hand, the activity data contains some inaccuracies, as at no point in the past two weeks did I
+	spend any time cycling. It's unclear to me why my mobile device predicted it as the most likely activity for a given
+	record (perhaps I was on a slow-moving bus?). However, outside of those few inexplicable records, the activity data
+	is correct as far as I can tell—it indicates that I am most often stationary, then next most often walking, which I 
+	know to be true due to class and commuting, respectively.</p>
+	
+	<p>Likewise, the address data is not completely correct, probably due to lack of precision in the
+	phone's ability to gauge locatiion. For example, the raw data records often placed me at a number of different nearby
+	addresses on my residential street rather than at my own apartment only, which I had to correct in the data-cleaning
+	process by aggregating those records. Likewise, the initial data recorded various locations on the CMU campus as
+	different addresses (perhaps technically true, but not useful for my analysis), which I again aggregated in the
+	data cleaning process. A frequency plot with the raw addresses is provided below:</p>
+	
+	<img width="700" src="plot5.png" alt="Italian Trulli">
+	
+	<p>Once corrected in this manner, however, the address frequency appears more or less accurate: I spent the majority of
+	my (recorded) time in the past two weeks at school, at home, and, somewhat sadly, at the bus stop. Again, the fact
+	that the data is sampled only when I have some degree of movement likely accounts for the greater number of records
+	at school than at home (while I'd like to think I study hard, I certainly don't spend more time at school than I do
+	at home—at most, the split should be roughly even).</p>
       </div>
 
     </div> <!-- /container -->

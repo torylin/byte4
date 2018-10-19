@@ -44,57 +44,46 @@
       
       <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
-	<h1>Interactive Data Science Project Exploratory Analysis Byte Example</h1>
-        <p>This is the Exploratory Analysis Byte of the Interactive Data Science class.</p>
+	<h1>Visualizing Mobile Data in Tableau</h1>
+        <p>In this byte, I visualize location and activity data collected from my mobile device over the course of two weeks
+        (October 4, 2018 to October 17, 2018).</p>
       </div>
       
       <div class="page-header">
 	
       </div> <!-- /page-header -->
     </div> <!-- /container -->
+    
+    <div class='tableauPlaceholder' id='viz1539919403348' style='position: relative'><noscript><a href='#'>
+    <img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;By&#47;Byte4_7&#47;Byte4&#47;1_rss.png' style='border: none' /></a></noscript>
+    <object class='tableauViz'  style='display:none;'>
+    	<param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> 
+    	<param name='embed_code_version' value='3' />
+    	<param name='site_root' value='' />
+    	<param name='name' value='Byte4_7&#47;Byte4' />
+    	<param name='tabs' value='no' />
+    	<param name='toolbar' value='no' />
+    	<param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;By&#47;Byte4_7&#47;Byte4&#47;1.png' /> 
+    	<param name='animate_transition' value='yes' />
+    	<param name='display_static_image' value='yes' />
+    	<param name='display_spinner' value='yes' />
+    	<param name='display_overlay' value='yes' />
+    	<param name='display_count' value='yes' />
+    	<param name='filter' value='publish=yes' />
+	</object></div>                
+	<script type='text/javascript'>                   
+		var divElement = document.getElementById('viz1539919403348');     
+		var vizElement = divElement.getElementsByTagName('object')[0];              
+		vizElement.style.minWidth='1300px';
+		vizElement.style.maxWidth='100%';
+		vizElement.style.minHeight='800px';
+		vizElement.style.maxHeight=(divElement.offsetWidth*0.75)+'px';  
+		var scriptElement = document.createElement('script');        
+		scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';      
+		vizElement.parentNode.insertBefore(scriptElement, vizElement);     
+	</script>
 
 <svg></svg>
-
-<!-- STYLES FOR D3 -->
-<style>
-/* Styles for date/time chart */
-path { 
-    stroke: steelblue;
-    stroke-width: 2;
-    fill: none;
-}
-
-.axis path,
-.axis line {
-    fill: none;
-    stroke: grey;
-    stroke-width: 1;
-    shape-rendering: crispEdges;
-}
-
-div.tooltip {	
-    position: absolute;			
-    text-align: center;			
-    width: 60px;					
-    height: 28px;					
-    padding: 2px;				
-    font: 12px sans-serif;		
-    background: lightsteelblue;	
-    border: 0px;		
-    border-radius: 8px;			
-    pointer-events: none;			
-}
-/* End styles for date/time chart */
-
-/* Styles for bar chart */
-.bar {
-  fill: steelblue;
-}
-.bar:hover {
-  fill: brown;
-}
-/* End styles for bar chart*/
-</style>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -105,96 +94,96 @@ div.tooltip {
     <script>
     $( document ).ready(function() {
 	
-		/* Start date/time hover graph code
-		*/
-		
-		// Set the dimensions of the canvas / graph
-		var margin = {top: 30, right: 20, bottom: 30, left: 50},
-		    width = 600 - margin.left - margin.right,
-		    height = 270 - margin.top - margin.bottom;
-		
-		// Parse the date / time
-		var parseDate = d3.timeParse("%d-%b-%y");
-		var formatTime = d3.timeFormat("%e %B");
-		
-		// Set the x and y ranges
-		var x = d3.scaleTime().range([0, width]);
-		var y = d3.scaleLinear().range([height, 0]);
-		
-		// Define the axes
-		var xAxis = d3.axisBottom(x).ticks(5);
-		
-		var yAxis = d3.axisLeft(y).ticks(5);
-		
-		// Define the line we're going to draw via our data points
-		var valueline = d3.line()
-		    .x(function(d) { return x(d.date); })
-		    .y(function(d) { return y(d.close); });
-		
-		// Define the div for the tooltip
-		var div = d3.select("body").append("div")	
-		    .attr("class", "tooltip")				
-		    .style("opacity", 0);
-		
-		// Adds the svg canvas
-		var svg = d3.select("body")
-		    .append("svg")
-		        .attr("width", width + margin.left + margin.right)
-		        .attr("height", height + margin.top + margin.bottom)
-		    .append("g")
-		        .attr("transform", 
-		              "translate(" + margin.left + "," + margin.top + ")");
-		
-		// Get the data
-		d3.csv("css/walk.csv", function(error, data) {
-		    data.forEach(function(d) {
-		        d.date = parseDate(d.date);
-		        d.close = +d.close;
-				console.log('d.date: ' + d.date + ', d.close: ' + d.close);
-		    });
-		
-		    // Scale the range of the data
-		    x.domain(d3.extent(data, function(d) { return d.date; }));
-		    y.domain([0, d3.max(data, function(d) { return d.close; })]);
-		
-		    // Add the valueline path.
-		    svg.append("path")
-		        .attr("class", "line")
-		        .attr("d", valueline(data));
-		
-		    // Add the scatterplot
-		    svg.selectAll("dot")	
-		        .data(data)			
-		    .enter().append("circle")								
-		        .attr("r", 5)		
-		        .attr("cx", function(d) { return x(d.date); })		 
-		        .attr("cy", function(d) { return y(d.close); })		
-		        .on("mouseover", function(d) {		
-		            div.transition()		
-		                .duration(200)		
-		                .style("opacity", .9);		
-		            div	.html(formatTime(d.date) + "<br/>"  + d.close)	
-		                .style("left", (d3.event.pageX) + "px")		
-		                .style("top", (d3.event.pageY - 28) + "px");	
-		            })					
-		        .on("mouseout", function(d) {		
-		            div.transition()		
-		                .duration(500)		
-		                .style("opacity", 0);	
-		        });
-		
-		    // Add the X Axis
-		    svg.append("g")
-		        .attr("class", "x axis")
-		        .attr("transform", "translate(0," + height + ")")
-		        .call(xAxis);
-		
-		    // Add the Y Axis
-		    svg.append("g")
-		        .attr("class", "y axis")
-		        .call(yAxis);
-		});
-		//End date/time hover graph
+//		/* Start date/time hover graph code
+//		*/
+//		
+//		// Set the dimensions of the canvas / graph
+//		var margin = {top: 30, right: 20, bottom: 30, left: 50},
+//		    width = 600 - margin.left - margin.right,
+//		    height = 270 - margin.top - margin.bottom;
+//		
+//		// Parse the date / time
+//		var parseDate = d3.timeParse("%d-%b-%y");
+//		var formatTime = d3.timeFormat("%e %B");
+//		
+//		// Set the x and y ranges
+//		var x = d3.scaleTime().range([0, width]);
+//		var y = d3.scaleLinear().range([height, 0]);
+//		
+//		// Define the axes
+//		var xAxis = d3.axisBottom(x).ticks(5);
+//		
+//		var yAxis = d3.axisLeft(y).ticks(5);
+//		
+//		// Define the line we're going to draw via our data points
+//		var valueline = d3.line()
+//		    .x(function(d) { return x(d.date); })
+//		    .y(function(d) { return y(d.close); });
+//		
+//		// Define the div for the tooltip
+//		var div = d3.select("body").append("div")	
+//		    .attr("class", "tooltip")				
+//		    .style("opacity", 0);
+//		
+//		// Adds the svg canvas
+//		var svg = d3.select("body")
+//		    .append("svg")
+//		        .attr("width", width + margin.left + margin.right)
+//		        .attr("height", height + margin.top + margin.bottom)
+//		    .append("g")
+//		        .attr("transform", 
+//		              "translate(" + margin.left + "," + margin.top + ")");
+//		
+//		// Get the data
+//		d3.csv("css/walk.csv", function(error, data) {
+//		    data.forEach(function(d) {
+//		        d.date = parseDate(d.date);
+//		        d.close = +d.close;
+//				console.log('d.date: ' + d.date + ', d.close: ' + d.close);
+//		    });
+//		
+//		    // Scale the range of the data
+//		    x.domain(d3.extent(data, function(d) { return d.date; }));
+//		    y.domain([0, d3.max(data, function(d) { return d.close; })]);
+//		
+//		    // Add the valueline path.
+//		    svg.append("path")
+//		        .attr("class", "line")
+//		        .attr("d", valueline(data));
+//		
+//		    // Add the scatterplot
+//		    svg.selectAll("dot")	
+//		        .data(data)			
+//		    .enter().append("circle")								
+//		        .attr("r", 5)		
+//		        .attr("cx", function(d) { return x(d.date); })		 
+//		        .attr("cy", function(d) { return y(d.close); })		
+//		        .on("mouseover", function(d) {		
+//		            div.transition()		
+//		                .duration(200)		
+//		                .style("opacity", .9);		
+//		            div	.html(formatTime(d.date) + "<br/>"  + d.close)	
+//		                .style("left", (d3.event.pageX) + "px")		
+//		                .style("top", (d3.event.pageY - 28) + "px");	
+//		            })					
+//		        .on("mouseout", function(d) {		
+//		            div.transition()		
+//		                .duration(500)		
+//		                .style("opacity", 0);	
+//		        });
+//		
+//		    // Add the X Axis
+//		    svg.append("g")
+//		        .attr("class", "x axis")
+//		        .attr("transform", "translate(0," + height + ")")
+//		        .call(xAxis);
+//		
+//		    // Add the Y Axis
+//		    svg.append("g")
+//		        .attr("class", "y axis")
+//		        .call(yAxis);
+//		});
+//		//End date/time hover graph
 		
 
 	
